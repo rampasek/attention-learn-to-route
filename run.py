@@ -13,6 +13,7 @@ from options import get_options
 from train import train_epoch, validate, get_inner_model
 from reinforce_baselines import NoBaseline, ExponentialBaseline, CriticBaseline, RolloutBaseline, WarmupBaseline
 from nets.attention_model import AttentionModel
+from nets.attention2edge_model import Attention2EdgeModel
 from nets.pointer_network import PointerNetwork, CriticNetworkLSTM
 from utils import torch_load_cpu, load_problem
 
@@ -52,6 +53,7 @@ def run(opts):
     # Initialize model
     model_class = {
         'attention': AttentionModel,
+        'attention2edge': Attention2EdgeModel,
         'pointer': PointerNetwork
     }.get(opts.model, None)
     assert model_class is not None, "Unknown model: {}".format(model_class)

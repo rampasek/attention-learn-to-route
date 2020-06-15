@@ -11,9 +11,10 @@ import torch.nn.functional as F
 
 
 def load_problem(name):
-    from problems import TSP, CVRP, SDVRP, OP, PCTSPDet, PCTSPStoch
+    from problems import TSP, TSPEdge, CVRP, SDVRP, OP, PCTSPDet, PCTSPStoch
     problem = {
         'tsp': TSP,
+        'tsp_edge': TSPEdge,
         'cvrp': CVRP,
         'sdvrp': SDVRP,
         'op': OP,
@@ -78,6 +79,7 @@ def load_args(filename):
 
 def load_model(path, epoch=None):
     from nets.attention_model import AttentionModel
+    from nets.attention2edge_model import Attention2EdgeModel
     from nets.pointer_network import PointerNetwork
 
     if os.path.isfile(path):
@@ -100,6 +102,7 @@ def load_model(path, epoch=None):
 
     model_class = {
         'attention': AttentionModel,
+        'attention2edge': Attention2EdgeModel,
         'pointer': PointerNetwork
     }.get(args.get('model', 'attention'), None)
     assert model_class is not None, "Unknown model: {}".format(model_class)
